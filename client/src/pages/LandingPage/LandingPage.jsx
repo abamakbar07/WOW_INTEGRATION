@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import Login from '../../comp/Login'
-import Signup from '../../comp/Signup'
+import Login from '../../components/Login'
+import Signup from '../../components/Signup'
 
 import logo from '../../img/logo.png'
 

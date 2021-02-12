@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import SideMenu from '../../comp/SideMenu'
+import SideMenu from '../../components/SideMenu'
 import MainContent from './MainContent'
 import Subscribe from './Subscribe'
 import Profile from './Profile';

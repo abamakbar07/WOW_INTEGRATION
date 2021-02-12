@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 
-exports.transactionAuth = (req, res, next) => {
+exports.loginAuth = (req, res, next) => {
   let header, token;
 
   if (

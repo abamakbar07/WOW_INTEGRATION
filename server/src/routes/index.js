@@ -24,7 +24,8 @@ const {
 
 const {
    register,
-   login
+   login,
+   checkAuth
 } = require("../controllers/auth");
 
 const {
@@ -35,7 +36,7 @@ const {
 } = require("../middlewares/uploadTransaction");
 
 const {
-   transactionAuth, adminAuth
+   loginAuth, adminAuth
 } = require("../middlewares/auth");
 
 router.get("/users", adminAuth, getUsers);
@@ -50,10 +51,11 @@ router.delete("/book/:id", adminAuth, deleteBook);
 
 router.get("/transactions", adminAuth, getTransactions);
 router.get("/transaction/:id", adminAuth, getTransaction);
-router.post("/transaction", uploadTransactionProof("transferProof"), transactionAuth, addTransaction);
+router.post("/transaction", uploadTransactionProof("transferProof"), loginAuth, addTransaction);
 router.patch("/transaction/:id", adminAuth, editTransaction);
 
 router.post("/register", register);
 router.post("/login", login);
+router.get("/check-auth", loginAuth, checkAuth);
 
 module.exports = router;

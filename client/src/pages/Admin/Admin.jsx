@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import AdminNavbar from '../../comp/AdminNavbar'
+import AdminNavbar from '../../components/AdminNavbar'
 import AdminTransaction from './AdminTransaction'
 import AdminAddBook from './AdminAddBook'
 

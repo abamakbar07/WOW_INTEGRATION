@@ -141,3 +141,26 @@ exports.login = async (req, res) => {
     });
   }
 };
+
+exports.checkAuth = async (req, res) => {
+  try {
+    const user = await Users.findOne({
+      where: {
+        id: req.user.id,
+      },
+    });
+
+    res.send({
+      status: "success",
+      message: "User Valid",
+      data: {
+        user,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).send({
+      message: "Server Error",
+    });
+  }
+};
