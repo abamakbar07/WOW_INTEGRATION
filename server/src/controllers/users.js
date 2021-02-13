@@ -75,3 +75,50 @@ exports.deleteUser = async (req, res) => {
     });
   }
 };
+
+exports.editUser = async (req, res) => {
+  try {
+    const {
+      email
+    } = req.body;
+    const user = await Users.findOne({
+      where: {
+        email,
+      },
+    });
+
+    if (!user) {
+      return res.send({
+        status: "failed",
+        message: `User with email ${email} Not Existed`,
+      });
+    }
+
+    await Users.update(req.body, {
+      where: {
+        email,
+      },
+    });
+
+    const userUpdated = await Users.findOne({
+      where: {
+        email,
+      },
+      attributes: {
+        exclude: ["createdAt", "updatedAt"],
+      },
+    });
+
+    res.send({
+      status: "success",
+      data: {
+        user: userUpdated,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).send({
+      message: "Server Error",
+    });
+  }
+};

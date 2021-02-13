@@ -4,7 +4,8 @@ const router = express.Router();
 const {
    getUsers,
    deleteUser,
-   getUser
+   getUser,
+   editUser
 } = require("../controllers/users");
 
 const {
@@ -41,6 +42,7 @@ const {
 
 router.get("/users", getUsers);
 router.get("/user/:id", getUser);
+router.patch("/user", editUser);
 router.delete("/user/:id", deleteUser);
 
 router.get("/books", getBooks);

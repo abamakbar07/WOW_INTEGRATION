@@ -20,6 +20,18 @@ module.exports = {
       isAdmin: {
         type: Sequelize.BOOLEAN
       },
+      gender: {
+        type: Sequelize.STRING
+      },
+      phone: {
+        type: Sequelize.STRING
+      },
+      address: {
+        type: Sequelize.STRING
+      },
+      profilImage: {
+        type: Sequelize.STRING
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
