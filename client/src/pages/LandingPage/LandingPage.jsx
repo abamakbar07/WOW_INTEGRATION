@@ -1,10 +1,14 @@
-import { useState } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import Login from '../../components/Login'
 import Signup from '../../components/Signup'
 
 import logo from '../../img/logo.png'
 
-function LandingPage() {
+import { AppContext } from '../../context/globalContext'
+import { API } from "../../config/api";
+
+const LandingPage = () => {
+   const [dispatch] = useContext(AppContext);
    const [signupDisplay, setSignupDisplay] = useState(false)
    const [signinDisplay, setSigninDisplay] = useState(false)
    const [dimDisplay, setDimDisplay] = useState(false)
@@ -24,9 +28,29 @@ function LandingPage() {
       setSignupDisplay(false)
       setSigninDisplay(false)
    }
-   // const setDsply = (display) => {
-   //    setDisplay(display)
-   // }
+
+   const checkUser = async () => {
+      try {
+         const response = await API.get("/check-auth");
+
+         if (response.status === 401) {
+         return dispatch({
+            type: "AUTH_ERROR",
+         });
+         }
+
+         dispatch({
+         type: "USER_LOADED",
+         payload: response.data.user,
+         });
+      } catch (err) {
+
+      }
+   };
+
+  useEffect(() => {
+    checkUser();
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
    return(
       <div className="LandingPage">

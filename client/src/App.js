@@ -13,7 +13,8 @@ import Admin from './pages/Admin/Admin';
 
 import { QueryClientProvider, QueryClient } from "react-query";
 
-import { API, setAuthToken } from "./config/api";
+import { API,setAuthToken } from "./config/api";
+
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -22,7 +23,7 @@ if (localStorage.token) {
 const queryClient = new QueryClient();
 
 const App = () => {
-  const [state, dispatch] = useContext(AppContext);
+   const [state, dispatch] = useContext(AppContext);
 
   const checkUser = async () => {
     try {
@@ -36,7 +37,7 @@ const App = () => {
 
       dispatch({
         type: "USER_LOADED",
-        payload: response.data.data.user,
+        payload: response.data.user,
       });
     } catch (error) {
       return dispatch({
@@ -47,13 +48,13 @@ const App = () => {
 
   useEffect(() => {
     checkUser();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <QueryClientProvider client={queryClient}>
       <Router>
         <div className="App">
-          {state.isLogin && state.isLogin}
+          {/* {state.isLogin && state.isLogin} */}
           <Switch>
             <Route path="/" exact>
               <LandingPage />

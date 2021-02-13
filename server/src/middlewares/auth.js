@@ -16,7 +16,9 @@ exports.loginAuth = (req, res, next) => {
     const userKey = process.env.IS_USER;
     const verified = jwt.verify(token, (adminKey || userKey));
 
-    req.user = verified;
+    req.verified = verified;
+    console.log("hasil req verified in aut", req.verified);
+    
     next();
   } catch (error) {
     res.status(400).send({

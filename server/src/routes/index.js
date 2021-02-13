@@ -39,7 +39,7 @@ const {
    loginAuth, adminAuth
 } = require("../middlewares/auth");
 
-router.get("/users", adminAuth, getUsers);
+router.get("/users", getUsers);
 router.get("/user/:id", getUser);
 router.delete("/user/:id", deleteUser);
 

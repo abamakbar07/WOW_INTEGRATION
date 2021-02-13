@@ -7,7 +7,7 @@ import BookDetail from './BookDetail';
 
 import { Container, Row, Col, Card } from 'react-bootstrap';
 
-function Dashboard() {
+const Dashboard = () => {
    const [home, setHome] = useState(true)
    const [subscribe, setSubscribe] = useState(false)
    const [profile, setProfile] = useState(false)

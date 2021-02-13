@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import logo from '../img/logo.png'
 import profile from '../img/profile.png'
 import iconProfile from '../img/icon/iconProfile.png'
@@ -8,10 +8,17 @@ import iconLogout from '../img/icon/iconLogout.png'
 import { Link } from 'react-router-dom';
 import { Card } from 'react-bootstrap';
 import { AppContext } from '../context/globalContext'
+import { API } from '../config/api'
 
 function SideMenu(props) {
-   const [state] = useContext(AppContext);
+   const [state, dispatch] = useContext(AppContext);
    const isAdmin = state.isAdmin;
+
+   const signOut = async (e) => {
+      dispatch({
+         type: "LOGOUT"
+      })
+   }
 
    return (
       <div className="SideMenu container">
@@ -25,7 +32,7 @@ function SideMenu(props) {
                <Card.Img className="rounded-circle mt-2" src={profile} style={{width: "100px"}} />
             </Link>
          </div>
-         <h4 className="font-weight-bold mt-2">Egi Ganteng</h4>
+         <h4 className="font-weight-bold mt-2">Egi</h4>
          <h6 className={
                isAdmin ? 'mt-2 text-success font-weight-bold' : 'mt-2 text-danger font-weight-bold'
             }>{isAdmin ? 'Subscribed' : 'Not Subscribed Yet' }
@@ -68,7 +75,7 @@ function SideMenu(props) {
                      <div className="col-1 pr-4">
                         <img alt="" className="Dashboard-sidebar-icon" src={iconLogout} />
                      </div>
-                     <p className="Dashboard-sidebar-text col-12 text-left mb-0 ml-2 text-secondary" >Logout</p>
+                     <p className="Dashboard-sidebar-text col-12 text-left mb-0 ml-2 text-secondary" onClick={(e) => signOut(e)} >Logout</p>
                   </button>
                </Link>
             </div>
