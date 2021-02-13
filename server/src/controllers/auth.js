@@ -146,8 +146,8 @@ exports.login = async (req, res) => {
 
 exports.checkAuth = async (req, res) => {
   try {
-    const userId = req.verified.id;
-    console.log("user id ", userId);
+    const userId = req.jwt.id;
+    console.log(req.jwt);
     const user = await Users.findOne({
       where: {
         id: userId,

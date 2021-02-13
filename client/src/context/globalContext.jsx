@@ -37,8 +37,8 @@ const reducer = (state, action) => {
          case "USER_LOADED":
             return {
             ...state,
-            isLogin: false,
-            isAdmin: false,
+            isLogin: true,
+            isAdmin: true,
             loading: false,
             };
          case "AUTH_ERROR":

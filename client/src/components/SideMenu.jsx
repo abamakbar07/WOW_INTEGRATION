@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
 import logo from '../img/logo.png'
 import profile from '../img/profile.png'
 import iconProfile from '../img/icon/iconProfile.png'
@@ -11,6 +11,7 @@ import { AppContext } from '../context/globalContext'
 import { API } from '../config/api'
 
 function SideMenu(props) {
+   const user = global.userLogin;
    const [state, dispatch] = useContext(AppContext);
    const isAdmin = state.isAdmin;
 
@@ -32,7 +33,7 @@ function SideMenu(props) {
                <Card.Img className="rounded-circle mt-2" src={profile} style={{width: "100px"}} />
             </Link>
          </div>
-         <h4 className="font-weight-bold mt-2">Egi</h4>
+         <h4 className="font-weight-bold mt-2">{user.fullname}</h4>
          <h6 className={
                isAdmin ? 'mt-2 text-success font-weight-bold' : 'mt-2 text-danger font-weight-bold'
             }>{isAdmin ? 'Subscribed' : 'Not Subscribed Yet' }

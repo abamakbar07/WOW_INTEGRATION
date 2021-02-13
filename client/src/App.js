@@ -13,36 +13,38 @@ import Admin from './pages/Admin/Admin';
 
 import { QueryClientProvider, QueryClient } from "react-query";
 
-import { API,setAuthToken } from "./config/api";
+import { API, setAuthToken } from "./config/api";
 
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
 }
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient()
+
+console.log(localStorage.token)
 
 const App = () => {
-   const [state, dispatch] = useContext(AppContext);
+  const [dispatch] = useContext(AppContext);
 
   const checkUser = async () => {
     try {
       const response = await API.get("/check-auth");
-
+      console.log(response.config.headers["Authorization"])
       if (response.status === 401) {
         return dispatch({
           type: "AUTH_ERROR",
         });
       }
 
-      dispatch({
-        type: "USER_LOADED",
-        payload: response.data.user,
-      });
+      if (response.config.headers["Authorization"]) {
+        dispatch({
+          type: "USER_LOADED",
+          payload: response.data.user,
+        });
+      }
     } catch (error) {
-      return dispatch({
-        type: "AUTH_ERROR",
-      });
+
     }
   };
 

@@ -48,10 +48,18 @@ const Login = (props) => {
 
       setAuthToken(user.data.data.user.token);
 
-      history.push("/Dashboard");
+      global.userLogin = user.data.data.user
+
+      // history.push({
+      //   pathname: "/Dashboard",
+      //   search: "?query=abc",
+      //   state: {
+      //     detail: user.data.data.user
+      //   }
+      // });
 
     } catch (error) {
-      console.log(error);
+      
     }
   };
 
