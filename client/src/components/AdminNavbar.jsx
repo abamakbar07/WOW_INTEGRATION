@@ -1,11 +1,24 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import logo from './../img/logo.png'
-import profile from './../img/profile.png'
+import profileDefault from '../img/profileDefault.jpg'
+import iconLogout from '../img/icon/iconLogout.png'
+import iconBook from '../img/icon/addBookGrey.png'
 
-import { Navbar } from 'react-bootstrap'
+import { Navbar, Dropdown } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
-function AdminNavbar(props) {
+import { AppContext } from '../context/globalContext'
+
+const AdminNavbar = (props) => {
+   const addBook = props.isAddbook
+
+   const [dispatch] = useContext(AppContext);
+
+   const signOut = async (e) => {
+      dispatch({
+         type: "LOGOUT"
+      })
+   }
 
    return (
       <div className="AdminNavbar">
@@ -16,9 +29,38 @@ function AdminNavbar(props) {
                <Link to="/Dashboard" >
                   <img alt="" src={logo} width="105px" style={{transform: "rotate(-15deg)"}} />
                </Link>
-               <Link to="/Admin" onClick={props.addbook}>
-                  <img alt="" src={profile} width="50px" />
-               </Link>
+
+               <Dropdown drop="left">
+                  <Dropdown.Toggle className="bg-transparent border-0">
+                     <img alt="" className="rounded-circle" style={{border: "3px solid black"}} src={profileDefault} width="50px" />
+                  </Dropdown.Toggle>
+
+                  <Dropdown.Menu>
+                     <Dropdown.Item className="p-0" onClick={props.addbook}>
+                        <div className="row container text-right">
+                           <div className="">
+                              <img alt="" className="ml-3 invert" width="25px" src={iconBook} />
+                           </div>
+                           <p className="text-left m-0 p-0 text-secondary" onClick="/" >{addBook ? "Transaction" : "Add Book"}</p>
+                        </div>
+                     </Dropdown.Item>
+
+                     <Dropdown.Divider />
+
+                     <Dropdown.Item className="p-0">
+                        <Link to="/" >
+                           <div className="row container text-right">
+                              <div className="">
+                                 <img alt="" className="ml-3" src={iconLogout} />
+                              </div>
+                              <p className="text-left m-0 p-0 text-secondary" onClick="/" >Logout</p>
+                           </div>
+                        </Link>
+                     </Dropdown.Item>
+
+                  </Dropdown.Menu>
+               </Dropdown>
+
             </Navbar>
          </div>
          

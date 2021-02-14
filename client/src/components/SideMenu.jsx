@@ -7,6 +7,7 @@ import iconLogout from '../img/icon/iconLogout.png'
 
 import { Link } from 'react-router-dom';
 import { Card } from 'react-bootstrap';
+
 import { AppContext } from '../context/globalContext'
 
 function SideMenu(props) {
@@ -60,7 +61,7 @@ function SideMenu(props) {
                      <div className="col-1 pr-4">
                         <img alt="" className="Dashboard-sidebar-icon" src={iconSubscibe} />
                      </div>
-                     <p className="Dashboard-sidebar-text col-12 text-left mb-0 ml-2 text-secondary" >Subscribe</p>
+                     <p className="Dashboard-sidebar-text col-12 text-left mb-0 ml-2 text-secondary" >{isAdmin ? 'Admin Page' : 'Subscribe'}</p>
                   </button>
                </Link>
             </div>

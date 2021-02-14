@@ -12,7 +12,7 @@ const Admin = () => {
    
    return (  
          <div className="Admin">
-            <AdminNavbar addbook={getAddBook} />
+            <AdminNavbar isAddbook={addBook} addbook={getAddBook} />
                <div style={{display: addBook ? 'none' : 'block'}}>
                   <AdminTransaction />
                </div>

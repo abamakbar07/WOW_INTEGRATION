@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import email from '../../img/icon/email.png'
+import emailIcon from '../../img/icon/email.png'
 import genderMale from '../../img/icon/genderMale.png'
-import phone from '../../img/icon/phone.png'
-import address from '../../img/icon/address.png'
+import phoneIcon from '../../img/icon/phone.png'
+import addressIcon from '../../img/icon/address.png'
 import profileDefault from '../../img/profileDefault.jpg'
 
 import { Card, ListGroup, Form, Button, Modal } from 'react-bootstrap'
@@ -80,7 +80,7 @@ const ProfileDetail = () => {
             <div className="col-md-8">
                <ListGroup horizontal>
                   <ListGroup.Item className="col-1 border-0 bg-transparent">
-                     <img className="" src={email} alt="" />
+                     <img className="" src={emailIcon} alt="" />
                   </ListGroup.Item>
                   <ListGroup.Item className="text-left border-0 bg-transparent">
                      <p className="m-0 font-weight-bold">
@@ -106,7 +106,7 @@ const ProfileDetail = () => {
                </ListGroup>
                <ListGroup horizontal>
                   <ListGroup.Item className="col-1 border-0 bg-transparent">
-                     <img className="" src={phone} alt="" />
+                     <img className="" src={phoneIcon} alt="" />
                   </ListGroup.Item>
                   <ListGroup.Item className="text-left border-0 bg-transparent">
                      <p className="m-0 font-weight-bold">
@@ -119,7 +119,7 @@ const ProfileDetail = () => {
                </ListGroup>
                <ListGroup horizontal>
                   <ListGroup.Item className="col-1 border-0 bg-transparent">
-                     <img className="" src={address} alt="" />
+                     <img className="" src={addressIcon} alt="" />
                   </ListGroup.Item>
                   <ListGroup.Item className="text-left border-0 bg-transparent">
                      <p className="m-0 font-weight-bold">
@@ -150,7 +150,7 @@ const ProfileDetail = () => {
                <div className="col-md-8">
                   <ListGroup horizontal>
                      <ListGroup.Item className="col-1 border-0 bg-transparent">
-                        <img className="" src={email} alt="" />
+                        <img className="" src={emailIcon} alt="" />
                      </ListGroup.Item>
                      <ListGroup.Item className="text-left border-0 bg-transparent">
                         <p className="m-0 font-weight-bold">
@@ -191,7 +191,7 @@ const ProfileDetail = () => {
                   </ListGroup>
                   <ListGroup horizontal>
                      <ListGroup.Item className="col-1 border-0 bg-transparent">
-                        <img className="" src={phone} alt="" />
+                        <img className="" src={phoneIcon} alt="" />
                      </ListGroup.Item>
                      <ListGroup.Item className="text-left border-0 bg-transparent">
                         <p className="m-0 font-weight-bold">
@@ -204,7 +204,7 @@ const ProfileDetail = () => {
                   </ListGroup>
                   <ListGroup horizontal>
                      <ListGroup.Item className="col-1 border-0 bg-transparent">
-                        <img className="" src={address} alt="" />
+                        <img className="" src={addressIcon} alt="" />
                      </ListGroup.Item>
                      <ListGroup.Item className="text-left border-0 bg-transparent">
                         <p className="m-0 font-weight-bold">
