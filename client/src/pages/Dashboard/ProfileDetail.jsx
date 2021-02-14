@@ -1,16 +1,72 @@
-import React from 'react'
+import React, { useState } from 'react'
 import email from '../../img/icon/email.png'
 import genderMale from '../../img/icon/genderMale.png'
 import phone from '../../img/icon/phone.png'
 import address from '../../img/icon/address.png'
-import profileDetail from '../../img/profileDetail.png'
+import profileDefault from '../../img/profileDefault.jpg'
 
-import { Card, ListGroup } from 'react-bootstrap'
+import { Card, ListGroup, Form, Button } from 'react-bootstrap'
+import { API } from '../../config/api'
 
-function ProfileDetail() {
+const ProfileDetail = () => {
+   const user = global.userLogin;
+   const [editButton, setEditButton] = useState(false);
+
+   const onEdit = (e) => {
+      setEditButton(!editButton);
+   }
+
+   const [editProfil, setEditProfil] = useState({
+      email: user.email,
+      gender: user.gender,
+      phone: user.phone,
+      address: user.address,
+      profilImage: user.profilImage,
+   });
+
+   const { email, gender, phone, address, profilImage } = editProfil;
+
+   const onChange = (e) => {
+      setEditProfil({ ...editProfil, [e.target.name]: e.target.value })
+   };
+
+   const onSubmit = async (e) => {
+      e.preventDefault();
+
+   // console.log(editProfil)
+
+      try {
+         // const body = JSON.stringify({
+         //    email,
+         //    gender,
+         //    phone,
+         //    address,
+         //    profilImage,
+         // })
+
+         // console.log(body)
+
+         const config = {
+            header: {
+               "Content-Type": "application/json",
+            },
+         };
+
+         const user = await API.post("/user/edit", editProfil, config);
+
+         console.log(user.data.data.user)
+
+         global.userLogin = user.data.data.user
+         
+      } catch (error) {
+         
+      }
+   }
+
+
    return (
       <div className="ProfileDetail col-sm-12">
-         <Card body className="border-0">
+         <Card body className={editButton ? "border-0 d-none" : "border-0"}>
             <div className="row">
             <div className="col-md-8">
                <ListGroup horizontal>
@@ -19,7 +75,7 @@ function ProfileDetail() {
                   </ListGroup.Item>
                   <ListGroup.Item className="text-left border-0 bg-transparent">
                      <p className="m-0 font-weight-bold">
-                        egigans@gmail.com
+                        {user.email}
                      </p>
                      <small className="text-muted">
                         Email
@@ -32,7 +88,7 @@ function ProfileDetail() {
                   </ListGroup.Item>
                   <ListGroup.Item className="text-left border-0 bg-transparent">
                      <p className="m-0 font-weight-bold">
-                        Male
+                        {user.gender ? user.gender : "-"}
                      </p>
                      <small className="text-muted">
                         Gender
@@ -45,7 +101,7 @@ function ProfileDetail() {
                   </ListGroup.Item>
                   <ListGroup.Item className="text-left border-0 bg-transparent">
                      <p className="m-0 font-weight-bold">
-                        0812-8623-8911
+                        {user.phone ? user.phone : "-"}
                      </p>
                      <small className="text-muted">
                         Mobile Phone
@@ -58,7 +114,8 @@ function ProfileDetail() {
                   </ListGroup.Item>
                   <ListGroup.Item className="text-left border-0 bg-transparent">
                      <p className="m-0 font-weight-bold">
-                        Perumahan Permata Bintaro Residence C-3
+                        {user.address ? user.address : "-"}
+                        {/* Perumahan Permata Bintaro Residence C-3 */}
                      </p>
                      <small className="text-muted">
                         Address
@@ -68,13 +125,99 @@ function ProfileDetail() {
             </div>
             <div className="col-md-4">
                <ListGroup>
-                  <img src={profileDetail} style={{width: "100%"}} alt="" />
+                  <img src={profileDefault} style={{width: "100%"}} alt="" />
                </ListGroup>
                <ListGroup className="mt-2">
-                  <div className="btn btn-danger">Edit Profile</div>
+                  <div className="btn btn-danger" onClick={(e) => onEdit(e)}>Edit Profile</div>
                </ListGroup>
             </div>
             </div>
+         </Card>
+{/* ---------------------------------------------------------------------------------------------- */}
+         <Card body className={editButton ? "border-0" : "border-0 d-none"}>
+            <Form onSubmit={(e) => onSubmit(e)}>
+            <Form.Group>
+            <div className="row">
+               <div className="col-md-8">
+                  <ListGroup horizontal>
+                     <ListGroup.Item className="col-1 border-0 bg-transparent">
+                        <img className="" src={email} alt="" />
+                     </ListGroup.Item>
+                     <ListGroup.Item className="text-left border-0 bg-transparent">
+                        <p className="m-0 font-weight-bold">
+                           <Form.Control plaintext readOnly defaultValue={user.email} />
+                        </p>
+                        <small className="text-muted">
+                           Email
+                        </small>
+                     </ListGroup.Item>
+                  </ListGroup>
+                  <ListGroup horizontal>
+                     <ListGroup.Item className="col-1 border-0 bg-transparent">
+                        <img className="" src={genderMale} alt="" />
+                     </ListGroup.Item>
+                     <ListGroup.Item className="text-left border-0 bg-transparent">
+                        <p className="m-0 font-weight-bold">
+                           <Form.Check
+                              type="radio"
+                              label="Male"
+                              value="Male"
+                              name="gender"
+                              id="formHorizontalRadios1"
+                              onChange={(e) => onChange(e)}
+                           />
+                           <Form.Check
+                              type="radio"
+                              label="Female"
+                              value="Female"
+                              name="gender"
+                              id="formHorizontalRadios2"
+                              onChange={(e) => onChange(e)}
+                           />
+                        </p>
+                        <small className="text-muted">
+                           Gender
+                        </small>
+                     </ListGroup.Item>
+                  </ListGroup>
+                  <ListGroup horizontal>
+                     <ListGroup.Item className="col-1 border-0 bg-transparent">
+                        <img className="" src={phone} alt="" />
+                     </ListGroup.Item>
+                     <ListGroup.Item className="text-left border-0 bg-transparent">
+                        <p className="m-0 font-weight-bold">
+                           <Form.Control className="bgTextbox mb-3" name="phone" type="text" placeholder="Enter Phone Number" onChange={(e) => onChange(e)} />
+                        </p>
+                        <small className="text-muted">
+                           Mobile Phone
+                        </small>
+                     </ListGroup.Item>
+                  </ListGroup>
+                  <ListGroup horizontal>
+                     <ListGroup.Item className="col-1 border-0 bg-transparent">
+                        <img className="" src={address} alt="" />
+                     </ListGroup.Item>
+                     <ListGroup.Item className="text-left border-0 bg-transparent">
+                        <p className="m-0 font-weight-bold">
+                           <Form.Control className="bgTextbox mb-3" name="address" type="text" placeholder="Enter Address" onChange={(e) => onChange(e)} />
+                        </p>
+                        <small className="text-muted">
+                           Address
+                        </small>
+                     </ListGroup.Item>
+                  </ListGroup>
+               </div>
+               <div className="col-md-4">
+                  <ListGroup>
+                     <img src={profileDefault} style={{width: "100%"}} alt="" />
+                  </ListGroup>
+                  <ListGroup className="mt-2">
+                     <Button className="btn btn-danger" type="submit" onClick={(e) => onEdit(e)}>Save</Button>
+                  </ListGroup>
+               </div>
+               </div>
+            </Form.Group>
+            </Form>
          </Card>
       </div>
    )

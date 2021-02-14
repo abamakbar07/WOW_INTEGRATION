@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import logo from '../img/logo.png'
-import profile from '../img/profile.png'
+import profileDefault from '../img/profileDefault.jpg'
 import iconProfile from '../img/icon/iconProfile.png'
 import iconSubscibe from '../img/icon/iconSubscibe.png'
 import iconLogout from '../img/icon/iconLogout.png'
@@ -8,7 +8,6 @@ import iconLogout from '../img/icon/iconLogout.png'
 import { Link } from 'react-router-dom';
 import { Card } from 'react-bootstrap';
 import { AppContext } from '../context/globalContext'
-import { API } from '../config/api'
 
 function SideMenu(props) {
    const user = global.userLogin;
@@ -29,8 +28,8 @@ function SideMenu(props) {
             </Link>
          </div>
          <div className="Dashboard-comp-profile">
-            <Link to='/Dashboard' onClick={props.profile} >
-               <Card.Img className="rounded-circle mt-2" src={profile} style={{width: "100px"}} />
+            <Link to='/Dashboard' style={{maxWidth: "125px", maxHeight: "125px"}} onClick={props.profile} >
+               <Card.Img className="rounded-circle mt-2" src={profileDefault} style={{height: "125px", width:"125px", border: "5px solid black"}} />
             </Link>
          </div>
          <h4 className="font-weight-bold mt-2">{user.fullname}</h4>

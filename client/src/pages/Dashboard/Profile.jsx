@@ -2,7 +2,7 @@ import React from 'react'
 import ProfileDetail from './ProfileDetail'
 import ProfileListbooks from './ProfileListbooks'
 
-function Profile() {
+const Profile = () => {
    return (
       <div className="Profile">
          <div className="container">

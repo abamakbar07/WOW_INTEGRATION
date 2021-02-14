@@ -77,13 +77,18 @@ exports.deleteUser = async (req, res) => {
 };
 
 exports.editUser = async (req, res) => {
+  console.log(req.body)
   try {
     const {
-      email
+      email,
+      gender,
+      phone,
+      address,
+      profilImage,
     } = req.body;
     const user = await Users.findOne({
       where: {
-        email,
+        email: req.body.email
       },
     });
 
@@ -96,7 +101,7 @@ exports.editUser = async (req, res) => {
 
     await Users.update(req.body, {
       where: {
-        email,
+        email: req.body.email
       },
     });
 
