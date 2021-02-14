@@ -5,12 +5,20 @@ import phone from '../../img/icon/phone.png'
 import address from '../../img/icon/address.png'
 import profileDefault from '../../img/profileDefault.jpg'
 
-import { Card, ListGroup, Form, Button } from 'react-bootstrap'
+import { Card, ListGroup, Form, Button, Modal } from 'react-bootstrap'
 import { API } from '../../config/api'
 
 const ProfileDetail = () => {
-   const user = global.userLogin;
-   const [editButton, setEditButton] = useState(false);
+  const [show, setShow] = useState(false);
+  
+  const user = global.userLogin;
+  const [editButton, setEditButton] = useState(false);
+
+  const handleClose = () => {
+     setShow(false);
+     setEditButton(false);
+  }
+  const handleShow = () => setShow(true);
 
    const onEdit = (e) => {
       setEditButton(!editButton);
@@ -31,6 +39,7 @@ const ProfileDetail = () => {
    };
 
    const onSubmit = async (e) => {
+      setShow(true);
       e.preventDefault();
 
    // console.log(editProfil)
@@ -212,13 +221,26 @@ const ProfileDetail = () => {
                      <img src={profileDefault} style={{width: "100%"}} alt="" />
                   </ListGroup>
                   <ListGroup className="mt-2">
-                     <Button className="btn btn-danger" type="submit" onClick={(e) => onEdit(e)}>Save</Button>
+                     <Button className="btn btn-danger" type="submit" onClick={(e) => onSubmit(e)}>Save</Button>
+                  </ListGroup>
+                  <ListGroup className="mt-2">
+                     <Button variant="light" type="" onClick={(e) => onEdit(e)}>Cancel</Button>
                   </ListGroup>
                </div>
                </div>
             </Form.Group>
             </Form>
          </Card>
+         
+         <Modal show={show} onHide={handleClose}>
+         <Modal.Body className="text-success">Profil update succesfully!</Modal.Body>
+         <Modal.Footer>
+            <Button variant="primary" onClick={handleClose}>
+               Ok
+            </Button>
+         </Modal.Footer>
+         </Modal>
+
       </div>
    )
 }
