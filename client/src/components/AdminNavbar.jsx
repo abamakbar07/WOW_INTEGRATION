@@ -12,9 +12,9 @@ import { AppContext } from '../context/globalContext'
 const AdminNavbar = (props) => {
    const addBook = props.isAddbook
 
-   const [dispatch] = useContext(AppContext);
+   const [state, dispatch] = useContext(AppContext);
 
-   const signOut = async (e) => {
+   const signOut = () => {
       dispatch({
          type: "LOGOUT"
       })
@@ -41,19 +41,19 @@ const AdminNavbar = (props) => {
                            <div className="">
                               <img alt="" className="ml-3 invert" width="25px" src={iconBook} />
                            </div>
-                           <p className="text-left m-0 p-0 text-secondary" onClick="/" >{addBook ? "Transaction" : "Add Book"}</p>
+                           <p className="text-left m-0 p-0 text-secondary" >{addBook ? "Transaction" : "Add Book"}</p>
                         </div>
                      </Dropdown.Item>
 
                      <Dropdown.Divider />
 
                      <Dropdown.Item className="p-0">
-                        <Link to="/" >
+                        <Link onClick={signOut} >
                            <div className="row container text-right">
                               <div className="">
                                  <img alt="" className="ml-3" src={iconLogout} />
                               </div>
-                              <p className="text-left m-0 p-0 text-secondary" onClick="/" >Logout</p>
+                              <p className="text-left m-0 p-0 text-secondary" >Logout</p>
                            </div>
                         </Link>
                      </Dropdown.Item>

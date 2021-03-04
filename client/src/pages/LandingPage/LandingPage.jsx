@@ -32,7 +32,6 @@ const LandingPage = () => {
    }
 
    useEffect(() => {
-      console.log(state.loading, state.user)
       if (!state.loading && state.user.isAdmin) {
          dispatch({
             type: "ADMIN_LOADED",

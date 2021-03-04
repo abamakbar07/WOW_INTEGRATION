@@ -70,6 +70,18 @@ const reducer = (state, action) => {
                },
                loading: false,
             };
+         case "ADD_BOOK_MODAL_OPEN":
+            return {
+               ...state,
+               addBookModal: action.payload.addBookModal,
+               addBookStatus: action.payload.addBookStatus,
+            }
+         case "ADD_BOOK_MODAL_CLOSE":
+            return {
+               ...state,
+               addBookModal: action.payload.addBookModal,
+               addBookStatus: action.payload.addBookStatus,
+            }
          case "AUTH_ERROR":
             console.log("Auth Error");
          case "LOGOUT":
