@@ -26,7 +26,7 @@ const AdminNavbar = (props) => {
             position: "fixed"
          }}>
             <Navbar className="justify-content-between bg-transparent pt-3">
-               <Link to="/Dashboard" >
+               <Link to="/admin" >
                   <img alt="" src={logo} width="105px" style={{transform: "rotate(-15deg)"}} />
                </Link>
 

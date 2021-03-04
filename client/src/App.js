@@ -6,45 +6,39 @@ import { AppContext } from './context/globalContext'
 import './App.css';
 
 import PrivateRoute from './components/PrivateRoute'
-import GlobalRoute from './components/GlobalRoute'
+import AdminRoute from './components/AdminRoute'
 import LandingPage from './pages/LandingPage/LandingPage'
 import Dashboard from './pages/Dashboard/Dashboard'
 import Admin from './pages/Admin/Admin';
 
-import { QueryClientProvider, QueryClient } from "react-query";
-
 import { API, setAuthToken } from "./config/api";
+import Profile from "./pages/Dashboard/Profile";
 
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
 }
 
-const queryClient = new QueryClient()
-
-console.log(localStorage.token)
-
 const App = () => {
-  const [dispatch] = useContext(AppContext);
+  const [state, dispatch] = useContext(AppContext);
 
   const checkUser = async () => {
     try {
       const response = await API.get("/check-auth");
-      console.log(response.config.headers["Authorization"])
+
       if (response.status === 401) {
         return dispatch({
           type: "AUTH_ERROR",
         });
       }
 
-      if (response.config.headers["Authorization"]) {
-        dispatch({
-          type: "USER_LOADED",
-          payload: response.data.user,
-        });
-      }
-    } catch (error) {
+      dispatch({
+        type: "USER_LOADED",
+        payload: response.data.data.user,
+      });
 
+    } catch (error) {
+      console.log(error)
     }
   };
 
@@ -53,21 +47,17 @@ const App = () => {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <QueryClientProvider client={queryClient}>
       <Router>
         <div className="App">
           {/* {state.isLogin && state.isLogin} */}
           <Switch>
-            <Route path="/" exact>
-              <LandingPage />
-            </Route>
-
-            <PrivateRoute path="/Dashboard" exact component={Dashboard} />
-            <GlobalRoute path="/Admin" exact component={Admin} />
+            <Route path="/" exact component={LandingPage} />
+            <PrivateRoute path="/dashboard" exact component={Dashboard} />
+            <PrivateRoute path="/profile" exact component={Profile} />
+            <AdminRoute path="/admin" exact component={Admin} />
           </Switch>
         </div>
       </Router>
-    </QueryClientProvider>
   );
 }
 

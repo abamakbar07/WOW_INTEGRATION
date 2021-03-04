@@ -11,7 +11,6 @@ import { Card } from 'react-bootstrap';
 import { AppContext } from '../context/globalContext'
 
 function SideMenu(props) {
-   const user = global.userLogin;
    const [state, dispatch] = useContext(AppContext);
    const isAdmin = state.isAdmin;
 
@@ -33,7 +32,7 @@ function SideMenu(props) {
                <Card.Img className="rounded-circle mt-2" src={profileDefault} style={{height: "125px", width:"125px", border: "5px solid black"}} />
             </Link>
          </div>
-         <h4 className="font-weight-bold mt-2">{user.fullname}</h4>
+         <h4 className="font-weight-bold mt-2">{state.user.fullname}</h4>
          <h6 className={
                isAdmin ? 'mt-2 text-success font-weight-bold' : 'mt-2 text-danger font-weight-bold'
             }>{isAdmin ? 'Subscribed' : 'Not Subscribed Yet' }
@@ -72,11 +71,11 @@ function SideMenu(props) {
          <div className="pt-5 d-flex">
             <div className="form-group row">
                <Link to="/">
-                  <button className="btn btn-block" onClick="/" style={{display: "flex"}}>
+                  <button className="btn btn-block" style={{display: "flex"}} onClick={(e) => signOut(e)}>
                      <div className="col-1 pr-4">
                         <img alt="" className="Dashboard-sidebar-icon" src={iconLogout} />
                      </div>
-                     <p className="Dashboard-sidebar-text col-12 text-left mb-0 ml-2 text-secondary" onClick={(e) => signOut(e)} >Logout</p>
+                     <p className="Dashboard-sidebar-text col-12 text-left mb-0 ml-2 text-secondary" >Logout</p>
                   </button>
                </Link>
             </div>

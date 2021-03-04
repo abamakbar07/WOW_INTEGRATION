@@ -3,51 +3,88 @@ import { createContext, useReducer } from 'react'
 export const AppContext = createContext();
 
 const initialState = {
-   title: 'ubah',
+   loginStatus: true,
+   isLogin: false,
+   isAdmin: false,
    user: null,
    loading: true,
 }
 
 const reducer = (state, action) => {
    switch (action.type) {
-         case "LOGIN_SUCCESS_ADMIN":
+         case "LOGIN_ADMIN":
             localStorage.setItem("token", action.payload.token);
             return {
-            ...state,
-            isLogin: true,
-            isAdmin: true,
-            user: {
-               email: action.payload.email,
-               fullName: action.payload.fullName,
-            },
-            loading: false,
+               ...state,
+               loginStatus: true,
+               isLogin: false,
+               isAdmin: true,
+               user: {
+                  id: action.payload.email,
+                  email: action.payload.email,
+                  fullname: action.payload.fullname,
+                  isAdmin: action.payload.isAdmin,
+                  profilImage: action.payload.profilImage
+               },
+               loading: false,
             };
-         case "LOGIN_SUCCESS_USER":
+         case "LOGIN_USER":
             localStorage.setItem("token", action.payload.token);
             return {
-            ...state,
-            isLogin: true,
-            isAdmin: false,
-            user: {
-               email: action.payload.email,
-               fullName: action.payload.fullName,
-            },
-            loading: false,
+               ...state,
+               loginStatus: true,
+               isLogin: true,
+               isAdmin: false,
+               user: {
+                  id: action.payload.email,
+                  email: action.payload.email,
+                  fullname: action.payload.fullname,
+                  isAdmin: action.payload.isAdmin,
+                  profilImage: action.payload.profilImage
+               },
+               loading: false,
+            };
+         case "ADMIN_LOADED":
+            return {
+               ...state,
+               isAdmin: true,
+               user: {
+                  id: action.payload.email,
+                  email: action.payload.email,
+                  fullname: action.payload.fullname,
+                  isAdmin: action.payload.isAdmin,
+                  profilImage: action.payload.profilImage
+               },
+               loading: false,
             };
          case "USER_LOADED":
             return {
-            ...state,
-            isLogin: true,
-            isAdmin: true,
-            loading: false,
+               ...state,
+               isLogin: true,
+               user: {
+                  id: action.payload.email,
+                  email: action.payload.email,
+                  fullname: action.payload.fullname,
+                  isAdmin: action.payload.isAdmin,
+                  profilImage: action.payload.profilImage
+               },
+               loading: false,
             };
          case "AUTH_ERROR":
+            console.log("Auth Error");
          case "LOGOUT":
             localStorage.removeItem("token");
             return {
                ...state,
                isLogin: false,
                isAdmin: false,
+               user: {
+                  id: "",
+                  email: "",
+                  fullname: "",
+                  isAdmin: "",
+                  profilImage: "",
+               }
             }
          default:
             throw new Error();

@@ -52,7 +52,7 @@ exports.register = async (req, res) => {
       isAdmin,
     });
 
-    const privateKey = isAdmin ? process.env.IS_ADMIN: process.env.IS_USER;
+    const privateKey = "very-secret-key";
 
     const token = jwt.sign({
         id: user.id,
@@ -117,7 +117,7 @@ exports.login = async (req, res) => {
         message: "Your Credentials is not valid",
       });
 
-    const secretKey = user.isAdmin ? process.env.IS_ADMIN : process.env.IS_USER;
+    const secretKey = "very-secret-key";
     const token = jwt.sign({
         id: user.id,
       },
@@ -151,11 +151,11 @@ exports.login = async (req, res) => {
 
 exports.checkAuth = async (req, res) => {
   try {
-    const userId = req.jwt.id;
-    console.log(req.jwt);
+    // const userId = req.jwt.id;
+    // console.log(req.jwt);
     const user = await Users.findOne({
       where: {
-        id: userId,
+        id: req.user.id,
       },
     });
     console.log("data user ", user);

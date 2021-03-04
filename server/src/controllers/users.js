@@ -110,7 +110,7 @@ exports.editUser = async (req, res) => {
         email,
       },
       attributes: {
-        exclude: ["createdAt", "updatedAt"],
+        exclude: ["createdAt", "updatedAt", "password", "isAdmin"],
       },
     });
 

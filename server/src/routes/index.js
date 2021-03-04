@@ -37,7 +37,7 @@ const {
 } = require("../middlewares/uploadTransaction");
 
 const {
-   loginAuth, adminAuth
+   loginAuth, userAuth
 } = require("../middlewares/auth");
 
 router.get("/users", getUsers);
@@ -47,17 +47,17 @@ router.delete("/user/:id", deleteUser);
 
 router.get("/books", getBooks);
 router.get("/book/:id", getBookDetail);
-router.post("/book", uploadBookNew("bookThumbnail", "bookFile"), adminAuth, addBook);
-router.patch("/book/:id", adminAuth, editBook);
-router.delete("/book/:id", adminAuth, deleteBook);
+router.post("/book", uploadBookNew("bookThumbnail", "bookFile"), userAuth, addBook);
+router.patch("/book/:id", userAuth, editBook);
+router.delete("/book/:id", userAuth, deleteBook);
 
-router.get("/transactions", adminAuth, getTransactions);
-router.get("/transaction/:id", adminAuth, getTransaction);
+router.get("/transactions", userAuth, getTransactions);
+router.get("/transaction/:id", userAuth, getTransaction);
 router.post("/transaction", uploadTransactionProof("transferProof"), loginAuth, addTransaction);
-router.patch("/transaction/:id", adminAuth, editTransaction);
+router.patch("/transaction/:id", userAuth, editTransaction);
 
 router.post("/register", register);
 router.post("/login", login);
-router.get("/check-auth", loginAuth, checkAuth);
+router.get("/check-auth", userAuth, checkAuth);
 
 module.exports = router;

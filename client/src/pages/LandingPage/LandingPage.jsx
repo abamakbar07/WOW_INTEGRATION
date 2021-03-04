@@ -6,9 +6,11 @@ import logo from '../../img/logo.png'
 
 import { AppContext } from '../../context/globalContext'
 import { API } from "../../config/api";
+import { useHistory } from 'react-router-dom'
 
 const LandingPage = () => {
-   const [dispatch] = useContext(AppContext);
+   const history = useHistory()
+   const [state, dispatch] = useContext(AppContext);
    const [signupDisplay, setSignupDisplay] = useState(false)
    const [signinDisplay, setSigninDisplay] = useState(false)
    const [dimDisplay, setDimDisplay] = useState(false)
@@ -29,28 +31,18 @@ const LandingPage = () => {
       setSigninDisplay(false)
    }
 
-   const checkUser = async () => {
-      try {
-         const response = await API.get("/check-auth");
-
-         if (response.status === 401) {
-         return dispatch({
-            type: "AUTH_ERROR",
-         });
-         }
-
+   useEffect(() => {
+      console.log(state.loading, state.user)
+      if (!state.loading && state.user.isAdmin) {
          dispatch({
-         type: "USER_LOADED",
-         payload: response.data.user,
-         });
-      } catch (err) {
-
+            type: "ADMIN_LOADED",
+            payload: state.user
+         })
+         history.push('/admin')
+      } else if (!state.loading && state.isLogin) {
+         history.push('/dashboard')
       }
-   };
-
-  useEffect(() => {
-    checkUser();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+   }, [state])
 
    return(
       <div className="LandingPage">

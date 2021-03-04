@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import emailIcon from '../../img/icon/email.png'
 import genderMale from '../../img/icon/genderMale.png'
 import phoneIcon from '../../img/icon/phone.png'
@@ -7,18 +7,21 @@ import profileDefault from '../../img/profileDefault.jpg'
 
 import { Card, ListGroup, Form, Button, Modal } from 'react-bootstrap'
 import { API } from '../../config/api'
+import { AppContext } from '../../context/globalContext'
 
 const ProfileDetail = () => {
-  const [show, setShow] = useState(false);
-  
-  const user = global.userLogin;
-  const [editButton, setEditButton] = useState(false);
+   const [state, dispatch] = useContext(AppContext)
+   const [show, setShow] = useState(false);
+   
+   const [dataUser, setDataUser] = useState({})
+   const user = state.user;
+   const [editButton, setEditButton] = useState(false);
 
-  const handleClose = () => {
-     setShow(false);
-     setEditButton(false);
-  }
-  const handleShow = () => setShow(true);
+   const handleClose = () => {
+      setShow(false);
+      setEditButton(false);
+   }
+   const handleShow = () => setShow(true);
 
    const onEdit = (e) => {
       setEditButton(!editButton);
@@ -41,20 +44,7 @@ const ProfileDetail = () => {
    const onSubmit = async (e) => {
       setShow(true);
       e.preventDefault();
-
-   // console.log(editProfil)
-
       try {
-         // const body = JSON.stringify({
-         //    email,
-         //    gender,
-         //    phone,
-         //    address,
-         //    profilImage,
-         // })
-
-         // console.log(body)
-
          const config = {
             header: {
                "Content-Type": "application/json",
@@ -71,7 +61,6 @@ const ProfileDetail = () => {
          
       }
    }
-
 
    return (
       <div className="ProfileDetail col-sm-12">

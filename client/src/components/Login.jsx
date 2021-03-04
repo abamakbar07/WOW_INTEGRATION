@@ -40,23 +40,25 @@ const Login = (props) => {
       };
 
       const user = await API.post("/login", body, config);
+      const userResult = user.data.data.user
 
-      dispatch({
-        type: user.data.data.user.isAdmin ? "LOGIN_SUCCESS_ADMIN" : "LOGIN_SUCCESS_USER",
-        payload: user.data.data.user,
-      });
+      if (userResult.isAdmin) {
+        dispatch({
+          type: "LOGIN_ADMIN",
+          payload: userResult
+        })
+        setAuthToken(userResult.token)
+        history.push("/admin")
+      } else {
+        dispatch({
+          type: "LOGIN_USER",
+          payload: userResult
+        })
+        setAuthToken(userResult.token)
+        history.push("/dashboard")
+      }
 
-      setAuthToken(user.data.data.user.token);
-
-      global.userLogin = user.data.data.user
-
-      // history.push({
-      //   pathname: "/Dashboard",
-      //   search: "?query=abc",
-      //   state: {
-      //     detail: user.data.data.user
-      //   }
-      // });
+      setAuthToken(userResult.token);
 
     } catch (error) {
       console.log(error)

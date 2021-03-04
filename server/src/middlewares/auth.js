@@ -28,7 +28,7 @@ exports.loginAuth = (req, res, next) => {
   }
 };
 
-exports.adminAuth = (req, res, next) => {
+exports.userAuth = (req, res, next) => {
   let header, token;
 
   if (
@@ -41,7 +41,8 @@ exports.adminAuth = (req, res, next) => {
 
   try {
     const adminKey = process.env.IS_ADMIN;
-    const verified = jwt.verify(token, adminKey);
+    const secretKey = "very-secret-key"
+    const verified = jwt.verify(token, secretKey);
 
     req.user = verified;
     next();
