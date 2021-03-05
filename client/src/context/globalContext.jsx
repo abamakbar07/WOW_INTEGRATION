@@ -20,7 +20,7 @@ const reducer = (state, action) => {
                isLogin: false,
                isAdmin: true,
                user: {
-                  id: action.payload.email,
+                  id: action.payload.id,
                   email: action.payload.email,
                   fullname: action.payload.fullname,
                   isAdmin: action.payload.isAdmin,
@@ -36,7 +36,7 @@ const reducer = (state, action) => {
                isLogin: true,
                isAdmin: false,
                user: {
-                  id: action.payload.email,
+                  id: action.payload.id,
                   email: action.payload.email,
                   fullname: action.payload.fullname,
                   isAdmin: action.payload.isAdmin,
@@ -49,7 +49,7 @@ const reducer = (state, action) => {
                ...state,
                isAdmin: true,
                user: {
-                  id: action.payload.email,
+                  id: action.payload.id,
                   email: action.payload.email,
                   fullname: action.payload.fullname,
                   isAdmin: action.payload.isAdmin,
@@ -62,7 +62,7 @@ const reducer = (state, action) => {
                ...state,
                isLogin: true,
                user: {
-                  id: action.payload.email,
+                  id: action.payload.id,
                   email: action.payload.email,
                   fullname: action.payload.fullname,
                   isAdmin: action.payload.isAdmin,

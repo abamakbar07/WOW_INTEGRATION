@@ -1,9 +1,68 @@
-import React from 'react'
-import wow from './../../img/wow.png'
-import attach from './../../img/icon/attach.png'
+import React, { useContext, useState} from 'react'
 import { Card, Form, Button } from 'react-bootstrap';
 
-function Subscribe() {
+import { AppContext } from '../../context/globalContext';
+
+import wow from './../../img/wow.png'
+import attach from './../../img/icon/attach.png'
+import { API } from '../../config/api';
+import { useHistory } from 'react-router-dom';
+
+const Subscribe = () => {
+   const history = useHistory()
+   const [state, dispatch] = useContext(AppContext)
+
+   const [loading, setLoading] = useState(false)
+
+   const [previewImage, setPreviewImage] = useState({
+      file : null,
+   })
+
+   const [addTransaction, setAddTransaction] = useState({
+      userId: state.user.id,
+      transferProof: null,
+   })
+
+   const onUploadTransferProof = (e) => {
+      const updateAddTransaction = { ...addTransaction };
+      updateAddTransaction[e.target.name] = e.target.type === "file" ? e.target.files[0] : e.target.value;
+      setAddTransaction(updateAddTransaction)
+      setPreviewImage({
+         file: URL.createObjectURL(e.target.files[0])
+      })
+   }
+
+   const { userId, transferProof } = addTransaction
+
+   const onSubmit = async (e) => {
+      e.preventDefault()
+      try {
+         const form = new FormData();
+         form.append("userId", userId)
+         form.append("transferProof", transferProof)
+
+         const config = {
+            header: {
+               "Content-Type": "multipart/form-data",
+            }
+         }
+
+         setLoading(true)
+         const transaction = await API.post("/transaction", form, config)
+         console.log(transaction)
+         setLoading(false)
+
+         setAddTransaction({
+            userId: state.user.id,
+            transferProof: null,
+         })
+
+         history.push("/")
+      } catch (error) {
+         console.log(error)
+      }
+   }
+
    return (
       <div className="Subscribe">
          <div className="container">
@@ -16,12 +75,12 @@ function Subscribe() {
                            <p>Pay now and access all the latest books from <img src={wow} alt="" /></p>
                            <p className="font-weight-bold"><img src={wow} alt="" />: 0981312323</p>
                               <Form>
-                                 <Form.Group>
+                                 <Form.Group onSubmit={(e) => onSubmit(e)}>
                                     <Form.Control className="bgTextboxFile" type="id" placeholder="Input your account number" />
-                                 </Form.Group>
+                                 {/* </Form.Group> */}
                                  
-                                 <div className="form-group">
-                                    <label for="fusk" className="bgTextboxSubs form-control">
+                                 <div className="form-group mt-3">
+                                    <label for="transferProof" className="bgTextboxSubs form-control">
                                        <div className="justify-content-between row ml-1 mr-1">
                                           <p className="text-left ">
                                              Attache proof of transfer
@@ -31,13 +90,20 @@ function Subscribe() {
                                           </div>
                                        </div>
                                     </label>
-                                    <input id="fusk" type="file" name="photo" style={{display:"none"}} />
+                                    <input onChange={(e) => onUploadTransferProof(e)} id="transferProof" type="file" name="transferProof" style={{display:"none"}} />
+                                    <img  alt=""
+                                          src={previewImage.file}
+                                          style={{
+                                             width: "120px"
+                                          }} />
                                  </div>
 
-                                 <Form.Group className="submit-button mt-5">
-                                 <Button className="mt-2" variant="danger" type="file">
-                                    Send
-                                 </Button>
+                                 {/* <Form.Group className="submit-button mt-5"> */}
+                                 <div className="submit-button">
+                                    <Button className="mt-2" variant="danger" type="submit" onClick={(e) => onSubmit(e)}>
+                                       Send
+                                    </Button>
+                                 </div>
                                  </Form.Group>
            
                               </Form>

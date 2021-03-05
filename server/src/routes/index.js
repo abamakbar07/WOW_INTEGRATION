@@ -53,7 +53,7 @@ router.delete("/book/:id", userAuth, deleteBook);
 
 router.get("/transactions", userAuth, getTransactions);
 router.get("/transaction/:id", userAuth, getTransaction);
-router.post("/transaction", uploadTransactionProof("transferProof"), loginAuth, addTransaction);
+router.post("/transaction", uploadTransactionProof("transferProof"), userAuth, addTransaction);
 router.patch("/transaction/:id", userAuth, editTransaction);
 
 router.post("/register", register);
