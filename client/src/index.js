@@ -5,11 +5,14 @@ import './index.css';
 import "bootstrap/dist/css/bootstrap.min.css";
 import reportWebVitals from './reportWebVitals';
 import { AppContextProvider } from "./context/globalContext";
+import { BookContextProvider } from './context/bookContext';
 
 ReactDOM.render(
   <React.StrictMode>
     <AppContextProvider>
-      <App />
+      <BookContextProvider>
+        <App />
+      </BookContextProvider>
     </AppContextProvider>
   </React.StrictMode>,
   document.getElementById("root")

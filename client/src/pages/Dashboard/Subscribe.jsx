@@ -48,13 +48,19 @@ const Subscribe = () => {
          }
 
          setLoading(true)
-         const transaction = await API.post("/transaction", form, config)
-         console.log(transaction)
+         await API.post("/transaction", form, config)
          setLoading(false)
 
          setAddTransaction({
             userId: state.user.id,
             transferProof: null,
+         })
+
+         dispatch({
+            type: "SUBSCRIBE_MODAL",
+            payload: {
+               subscribeModal: true,
+            }
          })
 
          history.push("/")

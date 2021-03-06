@@ -5,7 +5,6 @@ import Signup from '../../components/Signup'
 import logo from '../../img/logo.png'
 
 import { AppContext } from '../../context/globalContext'
-import { API } from "../../config/api";
 import { useHistory } from 'react-router-dom'
 
 const LandingPage = () => {

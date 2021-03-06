@@ -1,58 +1,74 @@
-import React from 'react'
-import book1 from '../../img/buku1.png'
-import book2 from '../../img/buku2.png'
-import book3 from '../../img/buku3.png'
-import book4 from '../../img/buku4.png'
-import { CardDeck, Card } from 'react-bootstrap';
-import { Link } from 'react-router-dom'
+import React, { useState, useEffect, useContext } from 'react'
+
+import { CardDeck, Card, Col, Spinner } from 'react-bootstrap';
+
+import { API } from '../../config/api'
+import { BookContext } from '../../context/bookContext';
 
 
-function ListBooks(props) {
+const ListBooks = (props) => {
+  const [stateBook, dispatchBook] = useContext(BookContext)
+  const [loading, setLoading] = useState(true)
+  const [listBook, setListBook] = useState({})
+
+  const getBookDetail = (id) => {
+    dispatchBook({
+      type: "SET_BOOK_DETAIL",
+      payload: id
+    })
+  }
+  
+  const getListBook = async () => {
+    try {
+        setLoading(true)
+        const result = await API.get("/books")
+        console.log(result.data.data.books)
+        setListBook(result.data.data.books);
+        setLoading(false)
+    } catch (error) {
+        console.log(error)
+    }
+  }
+
+   useEffect(() => {
+      getListBook()
+   }, [])
 
    return (
-      <div className="ListBooks">
+     <div className="ListBooks">
+       {loading ? (
+         <Col sm={12} className="container text-center p-5 m-5">
+           <Spinner animation="border" role="status"></Spinner>
+         </Col>
+       ) : (
          <CardDeck>
-            <Card className="ListBooks-card bg-transparent border-0">
-               <Card.Img variant="top" src={book1} />
-               <Card.Body className="text-left">
-                  <Card.Title className="ListBooks-title" >Serangkai</Card.Title>
-                  <Card.Text className="text-muted">
-                  Valeri Patkar
-                  </Card.Text>
-               </Card.Body>
-            </Card>
-            <Card className="ListBooks-card bg-transparent border-0">
-               <Card.Img variant="top" src={book2} />
-               <Card.Body className="text-left">
-                  <Card.Title className="ListBooks-title" >Z1 - Sd/Mi Buku Siswa Tematik Terpadu</Card.Title>
-                  <Card.Text className="text-muted">
-                  Afi Yustiyana
-                  </Card.Text>
-               </Card.Body>
-            </Card>
-            <Card className="ListBooks-card bg-transparent border-0">
-               <Card.Img variant="top" src={book3} />
-               <Card.Body className="text-left">
-                  <Card.Title className="ListBooks-title" >Kabar Rahasia Dari Alam Kubur</Card.Title>
-                  <Card.Text className="text-muted">
-                  DR. Kamil Yusuf Al-Atum
-                  </Card.Text>
-               </Card.Body>
-            </Card>
-            <Link to="/Dashboard" onClick={props.detailbook} >
-               <Card className="ListBooks-card bg-transparent border-0">
-                  <Card.Img variant="top" src={book4} />
-                  <Card.Body className="text-left">
-                     <Card.Title className="ListBooks-title" >Tess on the Road</Card.Title>
-                     <Card.Text className="text-muted">
-                     Rachel Hartman
-                     </Card.Text>
-                  </Card.Body>
+           {listBook.map((book) => (
+             <Col sm={3} >
+               <Card
+                 className="ListBooks-card bg-transparent border-0"
+                 onClick={props.detailbook}
+               >
+                 <Card.Img
+                   variant="top"
+                   src={"http://localhost:5000/books/" + book.bookThumbnail}
+                   style={{
+                     width: "10vw",
+                     height: "30vh",
+                   }}
+                 />
+                 <Card.Body className="text-left">
+                   <Card.Title className="ListBooks-title">
+                     {book.title}
+                   </Card.Title>
+                   <Card.Text className="text-muted">{book.author}</Card.Text>
+                 </Card.Body>
                </Card>
-            </Link>
+             </Col>
+           ))}
          </CardDeck>
-      </div>
-   )
+       )}
+     </div>
+   );
 }
 
 export default ListBooks

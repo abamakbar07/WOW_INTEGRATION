@@ -9,7 +9,7 @@ import { AppContext } from '../../context/globalContext'
 
 function AdminAddBook(props) {
    const history = useHistory()
-   const modalShow = props.modalShow
+   // const modalShow = props.modalShow
    const [state, dispatch] = useContext(AppContext)
    const [loading, setLoading] = useState(false);
 

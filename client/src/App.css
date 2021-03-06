@@ -333,3 +333,7 @@
 .tr-listTransaction td {
   width: 3%;
 }
+
+.ListBooks-card {
+  cursor: pointer;
+}

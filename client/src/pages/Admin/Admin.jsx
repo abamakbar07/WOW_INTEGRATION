@@ -19,8 +19,6 @@ const Admin = () => {
       setShow(true);
       setLoading(false)
    }
-
-   // if (state.addBookModal) modalShow()
    
    const modalClose = () => {
       setShow(false);
