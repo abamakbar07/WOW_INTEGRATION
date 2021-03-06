@@ -87,9 +87,6 @@ const Login = (props) => {
               Don't have an account? Klik <a className="font-weight-bold text-dark" onClick={props.valSu} href="/#" >Here</a>
               {/* Don't have an account? Klik <a className="font-weight-bold text-dark" href="/#" >Here</a> */}
             </Form.Text>            
-            <Form.Text className="text-muted">
-              <pre>{JSON.stringify(loginFormData, null, 2)}</pre>
-            </Form.Text>
 
           </Form>
         </div>

@@ -73,10 +73,7 @@ const Signup = (props) => {
 
             <Form.Text className="text-muted">
               Already have an account? Klik <a className="font-weight-bold text-dark" onClick={props.valSi} href="/#">Here</a>
-            </Form.Text>    
-            <Form.Text className="text-muted">
-              <pre>{JSON.stringify(signupFormData, null, 2)}</pre>
-            </Form.Text>        
+            </Form.Text>           
 
           </Form>
         </div>

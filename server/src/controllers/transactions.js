@@ -150,6 +150,7 @@ exports.getTransaction = async (req, res) => {
 
 exports.getTransactions = async (req, res) => {
   try {
+    console.log("Backend")
     const transaction = await Transactions.findAll({
       attributes: {
         exclude: ["createdAt", "updatedAt", "userId", "UserId"],
