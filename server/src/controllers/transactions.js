@@ -106,11 +106,11 @@ exports.editTransaction = async (req, res) => {
 
 exports.getTransaction = async (req, res) => {
   try {
-    const { id } = req.params;
+    const { users } = req.params;
 
     const transaction = await Transactions.findOne({
       where: {
-        id,
+        users,
       },
       attributes: {
         exclude: ["createdAt", "updatedAt", "userId", "UserId"],
@@ -119,11 +119,11 @@ exports.getTransaction = async (req, res) => {
 
     if (!transaction) {
       return res.status(400).send({
-        message: `Transaction with id ${id} Not Existed`,
+        message: `Transaction with userId ${users} Not Existed`,
       });
     }
 
-    const users = await Users.findOne({
+    const usersResult = await Users.findOne({
       where: {
         id: transaction.users,
       },
@@ -132,7 +132,7 @@ exports.getTransaction = async (req, res) => {
       },
     });
 
-    await (transaction["users"] = users);
+    await (transaction["users"] = usersResult);
 
     res.send({
       status: "success",

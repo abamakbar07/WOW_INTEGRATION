@@ -52,7 +52,7 @@ router.patch("/book/:id", userAuth, editBook);
 router.delete("/book/:id", userAuth, deleteBook);
 
 router.get("/transactions", userAuth, getTransactions);
-router.get("/transaction/:id", userAuth, getTransaction);
+router.get("/transaction/:users", userAuth, getTransaction);
 router.post("/transaction", uploadTransactionProof("transferProof"), userAuth, addTransaction);
 router.patch("/transaction/:id", userAuth, editTransaction);
 

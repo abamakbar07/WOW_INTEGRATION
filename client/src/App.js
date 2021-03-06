@@ -1,18 +1,20 @@
 import React, { useContext, useEffect } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 
 import { AppContext } from './context/globalContext'
 
-import './App.css';
+import './App.css'
 
 import PrivateRoute from './components/PrivateRoute'
 import AdminRoute from './components/AdminRoute'
+
 import LandingPage from './pages/LandingPage/LandingPage'
 import Dashboard from './pages/Dashboard/Dashboard'
-import Admin from './pages/Admin/Admin';
+import Admin from './pages/Admin/Admin'
+import Profile from "./pages/Dashboard/Profile"
+import BookDetail from "./pages/Dashboard/BookDetail"
 
-import { API, setAuthToken } from "./config/api";
-import Profile from "./pages/Dashboard/Profile";
+import { API, setAuthToken } from "./config/api"
 
 
 if (localStorage.token) {
@@ -53,6 +55,7 @@ const App = () => {
           <Switch>
             <Route path="/" exact component={LandingPage} />
             <PrivateRoute path="/dashboard" exact component={Dashboard} />
+            <PrivateRoute path="/dashboard/book-detail/:id" exact component={BookDetail} />
             <PrivateRoute path="/profile" exact component={Profile} />
             <AdminRoute path="/admin" exact component={Admin} />
           </Switch>

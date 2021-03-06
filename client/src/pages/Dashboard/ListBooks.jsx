@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
 
 import { CardDeck, Card, Col, Spinner } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 import { API } from '../../config/api'
 import { BookContext } from '../../context/bookContext';
@@ -17,6 +18,7 @@ const ListBooks = (props) => {
       payload: id
     })
   }
+
   
   const getListBook = async () => {
     try {
@@ -44,25 +46,27 @@ const ListBooks = (props) => {
          <CardDeck>
            {listBook.map((book) => (
              <Col sm={3} >
-               <Card
-                 className="ListBooks-card bg-transparent border-0"
-                 onClick={props.detailbook}
-               >
-                 <Card.Img
-                   variant="top"
-                   src={"http://localhost:5000/books/" + book.bookThumbnail}
-                   style={{
-                     width: "10vw",
-                     height: "30vh",
-                   }}
-                 />
-                 <Card.Body className="text-left">
-                   <Card.Title className="ListBooks-title">
-                     {book.title}
-                   </Card.Title>
-                   <Card.Text className="text-muted">{book.author}</Card.Text>
-                 </Card.Body>
-               </Card>
+                <Link to={"/dashboard/book-detail/" + book.id}>
+                  <Card
+                    className="ListBooks-card bg-transparent border-0"
+                    onClick={props.detailbook}
+                    >
+                    <Card.Img
+                      variant="top"
+                      src={"http://localhost:5000/books/" + book.bookThumbnail}
+                      style={{
+                        width: "10vw",
+                        height: "30vh",
+                        }}
+                        />
+                    <Card.Body className="text-left">
+                      <Card.Title className="ListBooks-title">
+                        {book.title}
+                      </Card.Title>
+                      <Card.Text className="text-muted">{book.author}</Card.Text>
+                    </Card.Body>
+                  </Card>
+                </Link>
              </Col>
            ))}
          </CardDeck>

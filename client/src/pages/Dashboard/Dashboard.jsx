@@ -1,14 +1,16 @@
 import React, { useContext, useState, useEffect } from 'react'
+import { Container, Row, Col, Card } from 'react-bootstrap'
+
 import SideMenu from '../../components/SideMenu'
 import MainContent from './MainContent'
 import Subscribe from './Subscribe'
-import Profile from './Profile';
-import BookDetail from './BookDetail';
+import Profile from './Profile'
+import BookDetail from './BookDetail'
 
-import { Container, Row, Col, Card } from 'react-bootstrap';
-import SubscribeModal from './SubscribeModal';
-import { AppContext } from '../../context/globalContext';
-import { useHistory } from 'react-router-dom';
+import SubscribeModal from './SubscribeModal'
+import { AppContext } from '../../context/globalContext'
+import { useHistory } from 'react-router-dom'
+import { API } from '../../config/api'
 
 const Dashboard = () => {
    const history = useHistory()
@@ -20,7 +22,18 @@ const Dashboard = () => {
    const [profile, setProfile] = useState(false)
    const [detailbook, setDetailbook] = useState(false)
 
+   const [userTransaction, setUserTransaction] = useState()
+
    const [show, setShow] = useState(false)
+
+   const getTransaction = async () => {
+    try {
+      const result = await API.get("/transaction/" + state.user.id)
+      setUserTransaction(result.data.data.transaction)
+    } catch (error) {
+      console.log("error getTransaction")
+    }
+   }
 
    const modalShow = () => {
       setShow(true);
@@ -66,6 +79,10 @@ const Dashboard = () => {
    useEffect(() => {
       if (state.subscribeModal) modalShow()
    }, [state])
+
+   useEffect(() => {
+     getTransaction()
+   }, [])
    
    return (
      <div className="Dashboard pt-3 pb-3">
@@ -91,7 +108,7 @@ const Dashboard = () => {
                  <MainContent detailbook={disDetailbook} setBookDetailPage={setBookDetailPage} />
                </div>
                <div style={{ display: subscribe ? "block" : "none" }}>
-                 <Subscribe />
+                 <Subscribe userTransaction={userTransaction} />
                </div>
                <div style={{ display: profile ? "block" : "none" }}>
                  <Profile />

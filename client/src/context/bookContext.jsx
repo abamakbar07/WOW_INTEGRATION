@@ -3,7 +3,7 @@ import { createContext, useReducer } from "react";
 export const BookContext = createContext();
 
 const initialState = {
-  bookDetailId: 1,
+  bookDetailId: null,
 };
 
 const reducer = (state, action) => {
