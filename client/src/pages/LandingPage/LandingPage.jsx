@@ -60,8 +60,14 @@ const LandingPage = () => {
                   </div>
 
                   <div className="LandingPage-tombol pt-4 text-center">
-                     <a onClick={signupDsply} className="btn btn-danger" href="/#" role="button">Sign Up</a>
-                     <a onClick={signinDsply} className="btn btn-dark" href="/#" role="button">Sign In</a>
+                     <div className="row">
+                        <div className="col-sm-6">
+                           <a onClick={signupDsply} className="btn btn-danger" href="/#" role="button">Sign Up</a>
+                        </div>
+                        <div className="col-sm-6">
+                           <a onClick={signinDsply} className="btn btn-dark" href="/#" role="button">Sign In</a>
+                        </div>
+                     </div>
                   </div>
 
                </div>

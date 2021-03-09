@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import logo from '../img/logo.png'
 import profileDefault from '../img/profileDefault.jpg'
 import iconProfile from '../img/icon/iconProfile.png'
@@ -14,7 +14,15 @@ const SideMenu = (props) => {
    const [state, dispatch] = useContext(AppContext);
    const isAdmin = state.isAdmin;
 
-   const [transaction, setTransaction] = useState(props.userTransaction)
+   const [transaction, setTransaction] = useState()
+
+   const getTransaction = async () => {
+      try {
+         await setTransaction(props.userTransaction)
+      } catch (error) {
+         console.log("Error sidemenu gettransaction")
+      }
+   }
 
    console.log(transaction)
    console.log(props.userTransaction)
@@ -33,6 +41,10 @@ const SideMenu = (props) => {
          type: "LOGOUT"
       })
    }
+
+   useEffect(() => {
+      getTransaction()
+   }, [])
 
    return (
       <div className="SideMenu container">

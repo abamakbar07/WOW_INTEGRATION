@@ -116,6 +116,7 @@
 .LandingPage-tombol a {
   margin-left: 15px;
   margin-right: 15px;
+  width: inherit;
 }
 
 .LandingPage-dim {
@@ -336,4 +337,32 @@
 
 .ListBooks-card {
   cursor: pointer;
+}
+
+.navBar .dropdown-menu::before {
+  border-bottom: 9px solid rgba(0, 0, 0, 0.2);
+  border-left: 9px solid rgba(0, 0, 0, 0);
+  border-right: 9px solid rgba(0, 0, 0, 0);
+  content: "";
+  display: inline-block;
+  left: 131px;
+  position: absolute;
+  top: -8px;
+}
+
+.navBar .dropdown-menu::after {
+  border-bottom: 8px solid #FFFFFF;
+  border-left: 9px solid rgba(0, 0, 0, 0);
+  border-right: 9px solid rgba(0, 0, 0, 0);
+  content: "";
+  display: inline-block;
+  left: 131px;
+  position: absolute;
+  top: -7px;
+}
+
+.transactionDropdown {
+  color: #1C9CD2 !important;
+  background-color: transparent !important;
+  border: none !important;
 }

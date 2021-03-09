@@ -146,20 +146,22 @@ const Transaction = () => {
                        >
                          {dataTrans.paymentStatus}
                        </td>
-                       <td style={{ width: "5vw" }}>
+                       <td className="navBar" style={{ width: "5vw" }}>
                          <Dropdown>
                            <Dropdown.Toggle
-                             variant="success"
+                             className="transactionDropdown"
                              id="dropdown-basic"
                            ></Dropdown.Toggle>
 
-                           <Dropdown.Menu>
+                           <Dropdown.Menu style={{borderRadius: "10px"}}>
                              <Dropdown.Item
+                               className="text-success"
                                onClick={() => approveButton(dataTrans.id)}
                              >
-                               Approve
+                               Approved
                              </Dropdown.Item>
                              <Dropdown.Item
+                               className="text-danger"
                                onClick={() => cancelButton(dataTrans.id)}
                              >
                                Cancel

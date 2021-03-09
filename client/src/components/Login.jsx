@@ -66,33 +66,53 @@ const Login = (props) => {
   };
 
   return (
+    <div className="card-body">
+      <div className="container p-2">
+        <Form onSubmit={(e) => onSubmit(e)}>
+          <h2 className="mb-3 text-left font-weight-bold">Login</h2>
 
-      <div className="card-body">
-        <div className="container p-2">
-          <Form onSubmit={(e) => onSubmit(e)}>
-            
-            <h2 className="mb-3 text-left font-weight-bold">Login</h2>
+          <Form.Group>
+            <Form.Control
+              className="bgTextbox mb-3"
+              name="email"
+              type="email"
+              placeholder="Enter email"
+              onChange={(e) => onChange(e)}
+            />
 
-            <Form.Group>
-              <Form.Control className="bgTextbox mb-3" name="email" type="email" placeholder="Enter email" onChange={(e) => onChange(e)} />
+            <Form.Control
+              className="bgTextbox mb-3"
+              name="password"
+              type="password"
+              placeholder="Password"
+              onChange={(e) => onChange(e)}
+            />
 
-              <Form.Control className="bgTextbox mb-3" name="password" type="password" placeholder="Password" onChange={(e) => onChange(e)} />
+            <Button
+              className="mt-2 submit-button"
+              variant="danger"
+              type="submit"
+              style={{ width: "-webkit-fill-available" }}
+            >
+              Sign In
+            </Button>
+          </Form.Group>
 
-                <Button className="mt-2 submit-button" variant="danger" type="submit">
-                  Sign In
-                </Button>
-            </Form.Group>
-
-            <Form.Text className="text-muted">
-              Don't have an account? Klik <a className="font-weight-bold text-dark" onClick={props.valSu} href="/#" >Here</a>
-              {/* Don't have an account? Klik <a className="font-weight-bold text-dark" href="/#" >Here</a> */}
-            </Form.Text>            
-
-          </Form>
-        </div>
+          <Form.Text className="text-muted">
+            Don't have an account? Klik{" "}
+            <a
+              className="font-weight-bold text-dark"
+              onClick={props.valSu}
+              href="/#"
+            >
+              Here
+            </a>
+            {/* Don't have an account? Klik <a className="font-weight-bold text-dark" href="/#" >Here</a> */}
+          </Form.Text>
+        </Form>
       </div>
-
-   )
+    </div>
+  );
 }
 
 export default Login
