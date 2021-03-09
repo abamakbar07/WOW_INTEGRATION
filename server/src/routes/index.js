@@ -40,6 +40,8 @@ const {
    loginAuth, userAuth
 } = require("../middlewares/auth");
 
+const { addListbook, getListbooks } = require("../controllers/userbookslist");
+
 router.get("/users", getUsers);
 router.get("/user/:id", getUser);
 router.post("/user/edit", editUser);
@@ -59,5 +61,8 @@ router.patch("/transaction/:id", userAuth, editTransaction);
 router.post("/register", register);
 router.post("/login", login);
 router.get("/check-auth", userAuth, checkAuth);
+
+router.post("/userlistbook", userAuth, addListbook);
+router.get("/userlistbooks/:users", userAuth, getListbooks);
 
 module.exports = router;

@@ -6,10 +6,15 @@ import { BookContext } from '../../context/bookContext'
 import SideMenu from '../../components/SideMenu'
 import iconBookmark from '../../img/icon/bookmark.png'
 import { API } from '../../config/api'
+import { AppContext } from '../../context/globalContext'
 
-const BookDetail = (props) => {
+const BookDetail = () => {
   const { id } = useParams()
   const [stateBook] = useContext(BookContext)
+  const [state] = useContext(AppContext)
+  const users = state.user.id
+  console.log(users)
+
   const [bookmark, setBookmark] = useState(false)
   const [loading, setLoading] = useState(true)
   const [book, setBook] = useState({})
@@ -25,8 +30,22 @@ const BookDetail = (props) => {
     }
   }
 
-  const getBookmark = () => {
-    setBookmark(true)
+  const getBookmark = async () => {
+    try {
+      const body = JSON.stringify({
+        users,
+        idBook: id,
+      })
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+      await API.post("/userlistbook", body, config);
+      setBookmark(true)
+    } catch (error) {
+      console.log("Failed getBookmark")
+    }
   }
 
   useEffect(() => {
@@ -118,7 +137,7 @@ const BookDetail = (props) => {
                       className="btn btn-light m-1"
                       style={{
                         background: "rgba(205, 205, 205, 0.7)",
-                        display: bookmark ? "inline-block" : "none",
+                        display: "inline-block",
                       }}
                     >
                       Read Book <div className="vRotate ml-2">V</div>
