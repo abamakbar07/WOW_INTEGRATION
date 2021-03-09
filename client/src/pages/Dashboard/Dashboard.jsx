@@ -11,6 +11,7 @@ import SubscribeModal from './SubscribeModal'
 import { AppContext } from '../../context/globalContext'
 import { useHistory } from 'react-router-dom'
 import { API } from '../../config/api'
+import BookDetailModalRead from './BookDetailModalRead'
 
 const Dashboard = () => {
    const history = useHistory()
@@ -24,7 +25,8 @@ const Dashboard = () => {
 
    const [userTransaction, setUserTransaction] = useState()
 
-   const [show, setShow] = useState(false)
+   const [showSubscribe, setShowSubscribe] = useState(false)
+   const [showRead, setShowRead] = useState(false)
 
    const getTransaction = async () => {
     try {
@@ -35,12 +37,23 @@ const Dashboard = () => {
     }
    }
 
-   const modalShow = () => {
-      setShow(true);
+   const modalShowSubscribe = () => {
+      setShowSubscribe(true);
+   }
+
+   const modalShowRead = () => {
+      setShowRead(true);
    }
    
    const modalClose = () => {
-      setShow(false);
+      setShowSubscribe(false);
+      setShowRead(false);
+      dispatch({
+         type: "READ_MODAL",
+         payload: {
+            ReadModal: false,
+         }
+      })
       dispatch({
          type: "SUBSCRIBE_MODAL",
          payload: {
@@ -77,7 +90,8 @@ const Dashboard = () => {
    }
 
    useEffect(() => {
-      if (state.subscribeModal) modalShow()
+      if (state.subscribeModal) modalShowSubscribe()
+      if (state.readModal) modalShowRead()
    }, [state])
 
    useEffect(() => {
@@ -109,6 +123,7 @@ const Dashboard = () => {
                  <MainContent
                    detailbook={disDetailbook}
                    setBookDetailPage={setBookDetailPage}
+                   userTransaction={userTransaction} 
                  />
                </div>
                <div style={{ display: subscribe ? "block" : "none" }}>
@@ -124,7 +139,8 @@ const Dashboard = () => {
            </Col>
          </Row>
 
-         <SubscribeModal show={show} modalClose={modalClose} />
+         <SubscribeModal show={showSubscribe} modalClose={modalClose} />
+         <BookDetailModalRead show={showRead} modalClose={modalClose} />
        </Container>
      </div>
    );

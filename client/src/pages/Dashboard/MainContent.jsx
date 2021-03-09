@@ -5,6 +5,7 @@ import ListBooks from './ListBooks'
 const MainContent = (props) => {
    const detailbook = props.detailbook
    const setBookDetailPage = props.setBookDetailPage
+   const userTransaction = props.userTransaction 
 
    return (
      <div className="MainContent">
@@ -19,6 +20,7 @@ const MainContent = (props) => {
                <ListBooks
                  detailbook={detailbook}
                  setBookDetailPage={setBookDetailPage}
+                 userTransaction={userTransaction}
                />
              </div>
            </div>

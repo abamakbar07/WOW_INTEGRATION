@@ -1,24 +1,39 @@
 import React, { useState, useEffect, useContext } from 'react'
 
 import { CardDeck, Card, Col, Spinner } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import { API } from '../../config/api'
-import { BookContext } from '../../context/bookContext';
+import { AppContext } from '../../context/globalContext';
 
 
 const ListBooks = (props) => {
-  const [stateBook, dispatchBook] = useContext(BookContext)
+  const history = useHistory()
+  const userTransaction = props.userTransaction
+
+  let paymentStatus = null
+
+  if (userTransaction) {
+     paymentStatus = userTransaction.paymentStatus
+  }
+
+  const [state, dispatch] = useContext(AppContext)
   const [loading, setLoading] = useState(true)
   const [listBook, setListBook] = useState({})
 
-  const getBookDetail = (id) => {
-    dispatchBook({
-      type: "SET_BOOK_DETAIL",
-      payload: id
-    })
+  const read = () => {
+    dispatch({
+      type: "READ_MODAL",
+      payload: {
+         readModal: true,
+      }
+   })
+   history.push("/")
   }
 
+  const pushDetailBook = (idBook) => {
+    history.push("/dashboard/book-detail/" + idBook)
+  }
   
   const getListBook = async () => {
     try {
@@ -46,7 +61,8 @@ const ListBooks = (props) => {
          <CardDeck>
            {listBook.map((book) => (
              <Col sm={3} >
-                <Link to={"/dashboard/book-detail/" + book.id}>
+                <Link onClick={paymentStatus == "Approve" ? (idBook) => pushDetailBook(book.id) : () => read()}>
+                {/* <Link to={"/dashboard/book-detail/" + book.id}> */}
                   <Card
                     className="ListBooks-card bg-transparent border-0"
                     onClick={props.detailbook}

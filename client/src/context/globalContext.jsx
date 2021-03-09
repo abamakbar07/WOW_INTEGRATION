@@ -87,6 +87,11 @@ const reducer = (state, action) => {
                ...state,
                subscribeModal: action.payload.subscribeModal
             }
+         case "READ_MODAL":
+            return {
+               ...state,
+               readModal: action.payload.readModal
+            }
          case "AUTH_ERROR":
             console.log("Auth Error");
          case "LOGOUT":
