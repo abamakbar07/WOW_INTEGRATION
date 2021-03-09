@@ -127,3 +127,54 @@ exports.editUser = async (req, res) => {
     });
   }
 };
+
+exports.editUserNoImage = async (req, res) => {
+  const { body } = req;
+
+  // const updateProfile = {
+  //   ...body,
+  // };
+  const { email, gender, phone, address, profilImage } = body;
+
+  try {
+    const user = await Users.findOne({
+      where: {
+        email,
+      },
+    });
+
+    if (!user) {
+      return res.send({
+        status: "failed",
+        message: `User with email ${email} Not Existed`,
+      });
+    }
+
+    await Users.update(body, {
+      where: {
+        email: body.email,
+      },
+    });
+
+    const userUpdated = await Users.findOne({
+      where: {
+        email,
+      },
+      attributes: {
+        exclude: ["createdAt", "updatedAt"],
+      },
+    });
+
+    res.send({
+      status: "success",
+      data: {
+        user: userUpdated,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).send({
+      message: "Server Error",
+    });
+  }
+};

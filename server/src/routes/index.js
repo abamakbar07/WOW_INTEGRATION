@@ -5,7 +5,8 @@ const {
    getUsers,
    deleteUser,
    getUser,
-   editUser
+   editUser,
+   editUserNoImage
 } = require("../controllers/users");
 
 const {
@@ -35,6 +36,9 @@ const {
 const {
    uploadTransactionProof
 } = require("../middlewares/uploadTransaction");
+const {
+   uploadProfileImage
+} = require("../middlewares/uploadProfile");
 
 const {
    loginAuth, userAuth
@@ -44,7 +48,8 @@ const { addListbook, getListbooks } = require("../controllers/userbookslist");
 
 router.get("/users", getUsers);
 router.get("/user/:id", getUser);
-router.post("/user/edit", editUser);
+router.post("/user/edit", uploadProfileImage("profilImage"), editUser);
+router.post("/user/edit-noimage", editUserNoImage);
 router.delete("/user/:id", deleteUser);
 
 router.get("/books", getBooks);

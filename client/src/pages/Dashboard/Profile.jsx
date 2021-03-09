@@ -14,7 +14,7 @@ const Profile = () => {
                      <ProfileDetail />
                   </div>
                   <h4 className="MainContent-subTitle text-left font-weight-bold" style={{marginTop: '68px'}}>My List Book</h4>
-                  <div className="row col-md-12">
+                  <div className="row">
                      <ProfileListbooks />
                   </div>
                </div>

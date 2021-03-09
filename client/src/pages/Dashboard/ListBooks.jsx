@@ -75,7 +75,7 @@ const ListBooks = (props) => {
                         height: "30vh",
                         }}
                         />
-                    <Card.Body className="text-left">
+                    <Card.Body className="text-left p-0 pt-2">
                       <Card.Title className="ListBooks-title">
                         {book.title}
                       </Card.Title>

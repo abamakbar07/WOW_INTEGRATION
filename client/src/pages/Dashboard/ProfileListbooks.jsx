@@ -16,7 +16,7 @@ const ProfileListbooks = () => {
   const [listBook, setListBook] = useState({});
 
   const pushDetailBook = (idBook) => {
-    history.push("/dashboard/book-detail/" + idBook);
+    history.push("/dashboard/book-read/" + idBook);
   };
 
   const getListBook = async () => {
@@ -41,10 +41,14 @@ const ProfileListbooks = () => {
         <Col sm={12} className="container text-center p-5 m-5">
           <Spinner animation="border" role="status"></Spinner>
         </Col>
+      ) : listBook.length < 1 ? (
+         <div className="text-center" style={{width: "60vw"}}>
+            <div className="">You dont have book list, get another one!</div>
+         </div>
       ) : (
         <CardDeck>
           {listBook.map((book) => (
-            <Col sm={3}>
+            <Col>
               <Link onClick={(idBook) => pushDetailBook(book.idBook.id)}>
                 <Card className="ListBooks-card bg-transparent border-0">
                   <Card.Img
@@ -55,7 +59,7 @@ const ProfileListbooks = () => {
                       height: "30vh",
                     }}
                   />
-                  <Card.Body className="text-left">
+                  <Card.Body className="text-left p-0 pt-2">
                     <Card.Title className="ListBooks-title">
                       {book.idBook.title}
                     </Card.Title>
