@@ -73,7 +73,9 @@ const BookDetail = (props) => {
                   <ListGroup horizontal>
                     <ListGroup.Item className="text-left border-0 bg-transparent mt-3">
                       <p className="m-0 font-weight-bold">Publication date</p>
-                      <small className="text-muted">{book.publicationDate}</small>
+                      <small className="text-muted">
+                        {book.publicationDate}
+                      </small>
                     </ListGroup.Item>
                   </ListGroup>
                   <ListGroup horizontal>
@@ -96,27 +98,28 @@ const BookDetail = (props) => {
                   <p className="BookDetail-aboutTitle text-left">
                     About This Book
                   </p>
-                  <p className="BookDetail-aboutSub text-left">
-                    {book.about}
-                  </p>
+                  <p className="BookDetail-aboutSub text-left">{book.about}</p>
                 </div>
               </div>
 
               <div className="row">
                 <div className="col-sm-12 text-right">
-                  <Link
-                    style={{ display: bookmark ? "none" : "block" }}
-                    onClick={getBookmark}
-                  >
-                    <button className="btn btn-danger m-1">
+                  <Link onClick={getBookmark}>
+                    <button
+                      className="btn btn-danger m-1"
+                      style={{ display: bookmark ? "none" : "inline-block" }}
+                    >
                       Add My List{" "}
                       <img alt="" className="ml-2" src={iconBookmark} />
                     </button>
                   </Link>
-                  <Link style={{ display: bookmark ? "block" : "none" }}>
+                  <Link to={"/dashboard/book-read/" + book.id}>
                     <button
                       className="btn btn-light m-1"
-                      style={{ background: "rgba(205, 205, 205, 0.7)" }}
+                      style={{
+                        background: "rgba(205, 205, 205, 0.7)",
+                        display: bookmark ? "inline-block" : "none",
+                      }}
                     >
                       Read Book <div className="vRotate ml-2">V</div>
                     </button>

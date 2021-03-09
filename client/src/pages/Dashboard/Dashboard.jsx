@@ -91,6 +91,7 @@ const Dashboard = () => {
            <Col className="Dashboard-comp Dashboard-comp-card profile" md={3}>
              <Card body className="bg-transparent border-0">
                <SideMenu
+                 userTransaction={userTransaction}
                  home={disHome}
                  subscribe={disSubscribe}
                  profile={disProfile}
@@ -105,7 +106,10 @@ const Dashboard = () => {
                body
              >
                <div style={{ display: home ? "block" : "none" }}>
-                 <MainContent detailbook={disDetailbook} setBookDetailPage={setBookDetailPage} />
+                 <MainContent
+                   detailbook={disDetailbook}
+                   setBookDetailPage={setBookDetailPage}
+                 />
                </div>
                <div style={{ display: subscribe ? "block" : "none" }}>
                  <Subscribe userTransaction={userTransaction} />

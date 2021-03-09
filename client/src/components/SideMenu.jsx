@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import logo from '../img/logo.png'
 import profileDefault from '../img/profileDefault.jpg'
 import iconProfile from '../img/icon/iconProfile.png'
@@ -10,9 +10,23 @@ import { Card } from 'react-bootstrap';
 
 import { AppContext } from '../context/globalContext'
 
-function SideMenu(props) {
+const SideMenu = (props) => {
    const [state, dispatch] = useContext(AppContext);
    const isAdmin = state.isAdmin;
+
+   const [transaction, setTransaction] = useState(props.userTransaction)
+
+   console.log(transaction)
+   console.log(props.userTransaction)
+   const userTransaction = props.userTransaction
+   console.log(userTransaction)
+
+   let paymentStatus = null
+
+   if (userTransaction) {
+      paymentStatus = userTransaction.paymentStatus
+   }
+   console.log(paymentStatus)
 
    const signOut = async (e) => {
       dispatch({
@@ -34,8 +48,8 @@ function SideMenu(props) {
          </div>
          <h4 className="font-weight-bold mt-2">{state.user.fullname}</h4>
          <h6 className={
-               isAdmin ? 'mt-2 text-success font-weight-bold' : 'mt-2 text-danger font-weight-bold'
-            }>{isAdmin ? 'Subscribed' : 'Not Subscribed Yet' }
+               state.paymentStatus == "Success" ? 'mt-2 text-success font-weight-bold' : state.paymentStatus == "Pending" ? 'mt-2 text-warning font-weight-bold' : 'mt-2 text-danger font-weight-bold'
+            }>{state.paymentStatus == "Success" ? 'Subscribed' : 'Not Subscribed Yet' }
          </h6>
 
          <hr className="Dashboard-comp-profile-line"></hr>

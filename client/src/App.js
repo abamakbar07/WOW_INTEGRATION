@@ -15,6 +15,7 @@ import Profile from "./pages/Dashboard/Profile"
 import BookDetail from "./pages/Dashboard/BookDetail"
 
 import { API, setAuthToken } from "./config/api"
+import BookRead from "./pages/Dashboard/BookRead";
 
 
 if (localStorage.token) {
@@ -56,6 +57,7 @@ const App = () => {
             <Route path="/" exact component={LandingPage} />
             <PrivateRoute path="/dashboard" exact component={Dashboard} />
             <PrivateRoute path="/dashboard/book-detail/:id" exact component={BookDetail} />
+            <PrivateRoute path="/dashboard/book-read/:id" exact component={BookRead} />
             <PrivateRoute path="/profile" exact component={Profile} />
             <AdminRoute path="/admin" exact component={Admin} />
           </Switch>
