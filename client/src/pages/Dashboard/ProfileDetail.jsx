@@ -148,7 +148,9 @@ const ProfileDetail = () => {
             </ListGroup>
           </div>
           <div className="col-md-4">
-            <ListGroup className="">
+            <ListGroup style={{
+              width: "15vw"
+            }}>
               <img
                 src={
                   loading
@@ -158,7 +160,7 @@ const ProfileDetail = () => {
                     : "http://localhost:5000/profiles/" + editProfil.profilImage
                 }
                 style={{
-                  width: "15vw",
+                  width: "100%",
                   marginLeft: "auto",
                   marginRight: "auto",
                 }}

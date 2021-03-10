@@ -49,12 +49,12 @@ const SideMenu = (props) => {
    return (
       <div className="SideMenu container">
          <div className="Dashboard-comp-profile">
-            <Link to="/Dashboard" onClick={props.home}>
+            <Link to="/dashboard" onClick={props.home}>
                <Card.Img src={logo} style={{width: "105px", height: "84px", transform: "rotate(-15deg)"}} />
             </Link>
          </div>
          <div className="Dashboard-comp-profile">
-            <Link to='/Dashboard' style={{maxWidth: "125px", maxHeight: "125px"}} onClick={props.profile} >
+            <Link to='/dashboard' style={{maxWidth: "125px", maxHeight: "125px"}} onClick={props.profile} >
                <Card.Img className="rounded-circle mt-2" src={profileDefault} style={{height: "125px", width:"125px", border: "5px solid black"}} />
             </Link>
          </div>
@@ -68,7 +68,7 @@ const SideMenu = (props) => {
 
          <div className="pt-5 d-flex">
             <div className="form-group row">
-               <Link to='/Dashboard' onClick={props.profile} >
+               <Link to='/dashboard' onClick={props.profile} >
                   <button className="btn btn-block" style={{display: "flex"}}>
                      <div className="col-1 pr-4">
                         <img alt="" className="Dashboard-sidebar-icon" src={iconProfile} />
