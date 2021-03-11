@@ -148,9 +148,11 @@ const ProfileDetail = () => {
             </ListGroup>
           </div>
           <div className="col-md-4">
-            <ListGroup style={{
-              width: "15vw"
-            }}>
+            <ListGroup
+              style={{
+                width: "15vw",
+              }}
+            >
               <img
                 src={
                   loading
@@ -166,9 +168,9 @@ const ProfileDetail = () => {
                 }}
                 alt=""
               />
-            </ListGroup>
-            <ListGroup className="mt-2">
-              <div className="btn btn-danger" onClick={(e) => onEdit(e)}>
+              {/* </ListGroup>  
+            <ListGroup className="mt-2"> */}
+              <div className="btn btn-danger mt-4" onClick={(e) => onEdit(e)}>
                 Edit Profile
               </div>
             </ListGroup>
@@ -276,72 +278,70 @@ const ProfileDetail = () => {
                 </ListGroup>
               </div>
               <div className="col-md-4">
-                <ListGroup>
+                <ListGroup
+                  style={{
+                    width: "15vw",
+                  }}
+                >
                   <Form.Group>
-                    <div>
-                      <label for="profilImage">
-                        <div
-                          style={{
-                            position: "relative",
-                            textAlign: "center",
-                            color: "white",
-                          }}
-                        >
-                          <img
-                            className={preview ? "d-none" : ""}
-                            src={
-                              editProfil.profilImage === null
-                                ? profileDefault
-                                : "http://localhost:5000/profiles/" +
-                                  editProfil.profilImage
-                            }
-                            style={{
-                              width: "15vw",
-                              marginLeft: "auto",
-                              marginRight: "auto",
-                              filter: "brightness(75%)",
-                            }}
-                          />
-                          <div
-                            style={{
-                              fontWeight: "500",
-                              border: "5px",
-                              position: "absolute",
-                              top: "50%",
-                              left: "50%",
-                              transform: "translate(-50%, -50%)",
-                            }}
-                          >
-                            Upload File
-                          </div>
-                        </div>
+                    <label for="profilImage">
+                      <div
+                        style={{
+                          position: "relative",
+                          textAlign: "center",
+                          color: "white",
+                        }}
+                      >
                         <img
-                          className={preview ? "" : "d-none"}
-                          src={previewImage.file}
+                          className={preview ? "d-none" : ""}
+                          src={
+                            editProfil.profilImage === null
+                              ? profileDefault
+                              : "http://localhost:5000/profiles/" +
+                                editProfil.profilImage
+                          }
                           style={{
-                            width: "15vw",
+                            width: "100%",
                             marginLeft: "auto",
                             marginRight: "auto",
                             filter: "brightness(75%)",
                           }}
                         />
-                      </label>
-                      <input
-                        onChange={(e) => onChangeImage(e)}
-                        name="profilImage"
-                        id="profilImage"
-                        type="file"
-                        style={{ display: "none" }}
+                        <div
+                          style={{
+                            fontWeight: "500",
+                            border: "5px",
+                            position: "absolute",
+                            top: "50%",
+                            left: "50%",
+                            transform: "translate(-50%, -50%)",
+                          }}
+                        >
+                          Upload File
+                        </div>
+                      </div>
+                      <img
+                        className={preview ? "" : "d-none"}
+                        src={previewImage.file}
+                        style={{
+                          width: "100%",
+                          marginLeft: "auto",
+                          marginRight: "auto",
+                          filter: "brightness(75%)",
+                        }}
                       />
-                    </div>
+                    </label>
+                    <input
+                      onChange={(e) => onChangeImage(e)}
+                      name="profilImage"
+                      id="profilImage"
+                      type="file"
+                      style={{ display: "none" }}
+                    />
                   </Form.Group>
-                </ListGroup>
-                <ListGroup className="mt-2">
-                  <Button className="btn btn-danger" type="submit">
+                  <Button className="btn btn-danger mb-2" type="submit">
                     Save
                   </Button>
-                </ListGroup>
-                <ListGroup className="mt-2">
                   <Button variant="light" type="" onClick={(e) => onEdit(e)}>
                     Cancel
                   </Button>

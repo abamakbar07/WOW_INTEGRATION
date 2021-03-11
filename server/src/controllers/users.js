@@ -77,37 +77,34 @@ exports.deleteUser = async (req, res) => {
 };
 
 exports.editUser = async (req, res) => {
-  console.log(req.body)
+  const { body, files } = req
+  const updateProfile = {
+    ...body,
+    profilImage: files.profilImage[0].filename,
+  }
   try {
-    const {
-      email,
-      gender,
-      phone,
-      address,
-      profilImage,
-    } = req.body;
     const user = await Users.findOne({
       where: {
-        email: req.body.email
+        email: updateProfile.email,
       },
     });
 
     if (!user) {
       return res.send({
         status: "failed",
-        message: `User with email ${email} Not Existed`,
+        message: `User with email ${updateProfile.email} Not Existed`,
       });
     }
 
-    await Users.update(req.body, {
+    await Users.update(updateProfile, {
       where: {
-        email: req.body.email
+        email: updateProfile.email,
       },
     });
 
     const userUpdated = await Users.findOne({
       where: {
-        email,
+        email: updateProfile.email,
       },
       attributes: {
         exclude: ["createdAt", "updatedAt", "password", "isAdmin"],

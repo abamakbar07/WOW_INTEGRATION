@@ -13,7 +13,6 @@ const BookDetail = () => {
   const [stateBook] = useContext(BookContext)
   const [state] = useContext(AppContext)
   const users = state.user.id
-  console.log(users)
 
   const [bookmark, setBookmark] = useState(false)
   const [loading, setLoading] = useState(true)

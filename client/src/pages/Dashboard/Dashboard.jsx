@@ -32,6 +32,12 @@ const Dashboard = () => {
     try {
       const result = await API.get("/transaction/" + state.user.id)
       setUserTransaction(result.data.data.transaction)
+      dispatch({
+        type: "GET_TRANSACTION_STATUS",
+        payload: {
+          paymentStatus: result.data.data.transaction.paymentStatus
+        },
+      });
     } catch (error) {
       console.log("error getTransaction")
     }

@@ -92,6 +92,11 @@ const reducer = (state, action) => {
                ...state,
                readModal: action.payload.readModal
             }
+         case "GET_TRANSACTION_STATUS":
+            return {
+               ...state,
+               paymentStatus: action.payload.paymentStatus
+            }
          case "AUTH_ERROR":
             console.log("Auth Error");
          case "LOGOUT":
@@ -106,7 +111,8 @@ const reducer = (state, action) => {
                   fullname: "",
                   isAdmin: "",
                   profilImage: "",
-               }
+               },
+               paymentStatus: null
             }
          default:
             throw new Error();
